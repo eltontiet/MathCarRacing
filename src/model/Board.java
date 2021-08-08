@@ -30,6 +30,18 @@ public class Board {
     }
 
     // REQUIRES: if in range, cell exists at (row, column)
+    // EFFECTS: activates or deactivates the cell at (row,column), if it is out of range, throws OutOfRangeException
+    public void changeCellActive(int row, int column, boolean active) throws OutOfRangeException {
+        if (row >= rows || column >= columns) {
+            throw new OutOfRangeException();
+        } else if (active) {
+            cells[row][column].activate();
+        } else {
+            cells[row][column].deactivate();
+        }
+    }
+
+    // REQUIRES: if in range, cell exists at (row, column)
     // EFFECTS: returns the cell at (row,column), if it is out of range, throws OutOfRangeException
     public Cell getCell(int row, int column) throws OutOfRangeException {
         if (row >= rows || column >= columns) {

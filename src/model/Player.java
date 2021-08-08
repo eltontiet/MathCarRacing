@@ -17,9 +17,11 @@ public class Player {
         gameHistory = new ArrayList<>();
     }
 
-    public Player(String name, int score, List<Game> gameHistory) {
+    // MODIFIES: this
+    // EFFECTS: creates a player with a name and game history, and initializes score.
+    public Player(String name, List<Game> gameHistory) {
         this.name = name;
-        this.score = score;
+        this.score = 0;
         this.gameHistory = gameHistory;
     }
 

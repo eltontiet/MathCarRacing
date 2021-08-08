@@ -98,5 +98,53 @@ class BoardTest {
 
     @Test
     void createCopy() {
+        Board newBoard = testBoard.createCopy();
+        assertNotEquals(newBoard, testBoard);
+
+        Cell[][] cells = newBoard.getCells();
+        assertEquals(cells[0][0].getScore(),testCell1.getScore());
+
+        try {
+            testBoard.setCell(new Cell(new Equation("1 + 5", 6)), 0, 0);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
+        cells = newBoard.getCells();
+        Cell[][] cells2 = testBoard.getCells();
+        assertNotEquals(cells[0][0].getScore(), cells2[0][0].getScore());
+    }
+
+    @Test
+    void changeCellActive() {
+        try {
+            Cell cell = testBoard.getCell(0,0);
+            assertTrue(cell.isActive());
+            testBoard.changeCellActive(0,0,true);
+            assertTrue(cell.isActive());
+            testBoard.changeCellActive(0,0,false);
+            assertFalse(cell.isActive());
+            testBoard.changeCellActive(0,0,false);
+            assertFalse(cell.isActive());
+        } catch (OutOfRangeException e) {
+            fail("Should not throw exception");
+        }
+    }
+
+    @Test
+    void changeCellActiveOutOfRangeRow() {
+        try {
+            testBoard.changeCellActive(3,1,true);
+        } catch (OutOfRangeException e) {
+            // pass
+        }
+    }
+
+    @Test
+    void changeCellActiveOutOfRangeColumn() {
+        try {
+            testBoard.changeCellActive(1,3,true);
+        } catch (OutOfRangeException e) {
+            // pass
+        }
     }
 }
